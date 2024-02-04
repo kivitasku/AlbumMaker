@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>album_page</title>
+
+  <style>
+    * {
+    margin: 0px;
+    align-content: center;
+    background-color: rgb(80, 79, 79);
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: #fffdd0;
+}
+
+ul {
+    list-style-position: outside;
+    font-weight: bolder;
+    list-style-type: none;
+  }
+
+audio {
+    max-width: 80vw;
+    width: 70vw;
+    filter: sepia(20%) saturate(70%) invert(12%);
+    border-radius: 150px;
+
+}
+
+.header {
+    
+    text-align: center;
+    padding-top: 10vh;
+    line-height: 5vh;
+
+}
+
+.album-img {
+    margin: auto;
+    width: 40vw;
+    height: 40vw;
+    background: url(album_image);
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-bottom: 2vh;
+}
+
+.songs {
+    padding-right: 2vh;
+    padding-bottom: 3vh;
+    text-align: center;
+    padding-top: 5vh;
+    line-height: 5vh;
+    
+}
+
+.footer {
+    padding-top: 5vh;
+    background-color: rgb(49, 49, 49);
+    height: 5vh;
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    font-size: larger;
+    font-weight: bold;
+}
+
+  </style>
+
+
+
+
+</head>
+
+
+<body>
+  <div class="header">
+    <div class="album-img"></div>
+    <h2>album_name</h2>
+    <h3>album_author</h3>
+    <p>album_info</p>
+
+
+  </div>
+   
+  <div class="songs">
+
+    <ol type="1">
+      
+      album_songs
+      
+
+  </ol>
+
+
+
+
+
+
+
+  </div>
+
+
+  <div class="footer">
+    OKU
+
+
+  </div>
+
+
+
+
+
+
+
+<script>
+  
+  var audioArray = Array.from(document.querySelectorAll('audio')).map(audioTag => audioTag.id);
+
+  var currentIndex = 0;
+
+  // Function to play audios starting from a specific index
+  function playFromIndex(startIndex) {
+    currentIndex = startIndex;
+    playNextAudio();
+  }
+
+  function playNextAudio() {
+    var audio = document.getElementById(audioArray[currentIndex]);
+    audio.play();
+    audio.onended = function () {
+      currentIndex++;
+      if (currentIndex < audioArray.length) {
+        playNextAudio();
+      } else {
+        currentIndex = 0;
+        playNextAudio();
+      }
+    };
+  }
+
+  // Start playing the audios from the beginning
+  playNextAudio();
+
+  // Add an event listener to the "play" event of each audio element
+  audioArray.forEach(function (audioId, index) {
+    var audio = document.getElementById(audioId);
+    audio.addEventListener("play", function () {
+      // When an audio starts playing, play all the remaining audios in order
+      playFromIndex(index);
+    });
+  });
+</script>
+
+
+    
+
+
+
+
+</script>
+
+</body>
+
+
+
+
+</html>
